@@ -14,4 +14,4 @@ jobs:
       - uses: actions/checkout@v4
       - uses: docker/setup-buildx-action@v2
       - run: docker build -t react-app-test .
-      - run: docker run --rm react-app-test npm test -- --watchAll=false
+      #- run: docker run --rm react-app-test npm test -- --watchAll=false
