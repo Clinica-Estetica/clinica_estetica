@@ -2,23 +2,31 @@ name: React CI/CD
 
 on:
   push:
-    branches:
-      - '**'
+    branches-ignore:
+      - staging
+      - master
   pull_request:
     branches:
-      - '**'
+      - staging
+      - master
 
 jobs:
+  lint:
+    if: ${{ github.event_name == 'push' && github.ref_name != 'staging' && github.ref_name != 'master' }}
+    uses: ./.github/workflows/lint.yml
+    with:
+      branch: ${{ github.ref_name }}
+      
   test:
-    if: github.ref_name == 'staging' || github.ref_name == 'master'
+    if: ${{ github.event_name == 'pull_request' && (github.base_ref == 'staging' || github.base_ref == 'master') }}
     uses: ./.github/workflows/test.yml
     secrets: inherit
     with:
       branch: ${{ github.ref_name }}
 
   deploy:
-    needs: test
-    if: github.event_name == 'push' && (github.ref_name == 'staging' || github.ref_name == 'master')
+    if:  ${{ github.event_name == 'push' && (github.ref_name == 'staging' || github.ref_name == 'master') }}
+    needs: [test]
     uses: ./.github/workflows/deploy.yml    
     secrets: inherit
     with:
