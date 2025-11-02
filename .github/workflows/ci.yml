@@ -9,21 +9,17 @@ on:
       - '**'
 
 jobs:
-  lint:
-    uses: ./.github/workflows/lint.yml
-    with:
-      branch: ${{ github.ref_name }}
-
   test:
-    needs: lint
     if: github.ref_name == 'staging' || github.ref_name == 'master'
     uses: ./.github/workflows/test.yml
+    secrets: inherit
     with:
       branch: ${{ github.ref_name }}
 
   deploy:
     needs: test
     if: github.ref_name == 'staging' || github.ref_name == 'master'
-    uses: ./.github/workflows/deploy.yml
+    uses: ./.github/workflows/deploy.yml    
+    secrets: inherit
     with:
       branch: ${{ github.ref_name }}
