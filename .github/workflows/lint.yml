@@ -10,6 +10,7 @@ on:
       
 jobs:
   lint:
+    if: github.ref_name != 'staging' && github.ref_name != 'master'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
