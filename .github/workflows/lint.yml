@@ -1,16 +1,14 @@
 name: Lint
 
 on:
-  push:
-    branches:
-      - '**'
-  pull_request:
-    branches:
-      - '**'
+  workflow_call:
+    inputs:
+      branch:
+        required: true
+        type: string
       
 jobs:
   lint:
-    if: github.ref_name != 'staging' && github.ref_name != 'master'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
