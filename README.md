@@ -1,6 +1,6 @@
 # React Application for Beauty Clinics
 
-This application is designed for service-based businesses like beauty clinics and health professionals. It includes screens for Dashboard widgets, Accounts Receivable, Financial Transactions, Branches, and much more. The system consumes a RESTful API.
+This application is designed for service-based businesses like beauty clinics and health professionals. It includes screens for Dashboard widgets, Accounts Receivable, Financial Transactions, Branches, and much more. The system consumes a RESTful API .
 
 ## Table of Contents
 
