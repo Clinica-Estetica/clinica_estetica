@@ -1,4 +1,4 @@
-name: Lint
+name: Lint analysis
 
 on:
   workflow_call:
