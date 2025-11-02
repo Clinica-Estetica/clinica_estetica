@@ -1,0 +1,29 @@
+name: React CI/CD
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  lint:
+    uses: ./.github/workflows/lint.yml
+    with:
+      branch: ${{ github.ref_name }}
+
+  test:
+    needs: lint
+    if: github.ref_name == 'staging' || github.ref_name == 'master'
+    uses: ./.github/workflows/test.yml
+    with:
+      branch: ${{ github.ref_name }}
+
+  deploy:
+    needs: test
+    if: github.ref_name == 'staging' || github.ref_name == 'master'
+    uses: ./.github/workflows/deploy.yml
+    with:
+      branch: ${{ github.ref_name }}
