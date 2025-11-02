@@ -2,9 +2,8 @@ name: React CI/CD
 
 on:
   push:
-    branches-ignore:
-      - staging
-      - master
+    branches:
+      - '**'
   pull_request:
     branches:
       - staging
@@ -12,7 +11,7 @@ on:
 
 jobs:
   lint:
-    if: ${{ github.event_name == 'push' && github.ref_name != 'staging' && github.ref_name != 'master' }}
+    if: ${{ github.ref_name != 'staging' && github.ref_name != 'master' || github.event_name == 'pull_request' }}
     uses: ./.github/workflows/lint.yml
     with:
       branch: ${{ github.ref_name }}
